@@ -2,6 +2,7 @@
 
 namespace Blog\ModelBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -48,6 +49,21 @@ class Post extends Timestampable
      */
     private $author;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Tag", cascade={"persist"}, mappedBy="posts")
+     */
+    private $tags;
+
+    /**
+     * Post constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->tags = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -127,5 +143,43 @@ class Post extends Timestampable
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param ArrayCollection $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
+    /**
+     * @param Tag $tag
+     * @return $this
+     */
+    public function addTag(Tag $tag)
+    {
+        $this->tags->add($tag);
+
+        return $this;
+    }
+
+    /**
+     * @param Tag $tag
+     * @return $this
+     */
+    public function removeTag(Tag $tag)
+    {
+        $this->tags->remove($tag);
+
+        return $this;
     }
 }

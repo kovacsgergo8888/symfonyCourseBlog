@@ -10,6 +10,7 @@ namespace Blog\ModelBundle\DataFixtures;
 
 use Blog\ModelBundle\Entity\Author;
 use Blog\ModelBundle\Entity\Post;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -40,6 +41,7 @@ class Posts extends AbstractFixture implements OrderedFixtureInterface
         $p1->setTitle("Lorem ipsum");
         $p1->setBody("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus suscipit condimentum metus fringilla scelerisque. Donec mollis est eu nisi tincidunt, a euismod nibh efficitur. Cras eu pulvinar massa. Praesent pulvinar elit nulla, vitae consectetur libero ornare at. Morbi urna turpis, luctus in velit sed, sodales scelerisque neque. Suspendisse potenti. Nunc posuere ex ut erat pretium scelerisque.");
         $p1->setAuthor($this->getAuthor($manager, 'David'));
+        $p1->setTags($this->addTags($manager, ['tag1','tag2']));
 
         $p2 = new Post();
         $p2->setTitle("Lorem ipsum");
@@ -76,5 +78,26 @@ class Posts extends AbstractFixture implements OrderedFixtureInterface
         );
 
         return $author;
+    }
+
+    /**
+     * @param ObjectManager $objectManager
+     * @param array $array
+     * @return ArrayCollection
+     */
+    private function addTags(ObjectManager $objectManager, $array)
+    {
+        $tags = [];
+
+        foreach ($array as $tag) {
+            $tagEntity = $objectManager->getRepository('ModelBundle:Tag')->findOneBy(
+                [
+                    "description" => $tag
+                ]
+            );
+            $tags[] = $tagEntity;
+        }
+
+        return new ArrayCollection($tags);
     }
 }
