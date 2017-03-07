@@ -1,0 +1,8 @@
+home: Főoldal
+
+post:
+  plural: Bejegyzések
+  on: Közzétéve
+by: Szerző
+read:
+  more: Tovább
