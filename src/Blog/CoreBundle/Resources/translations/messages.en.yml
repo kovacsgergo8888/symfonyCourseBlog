@@ -2,6 +2,7 @@ home: Home
 post:
   plural: Posts
   on: Posted on
+  latests: Latest posts
 by: Author
 read:
   more: Read more

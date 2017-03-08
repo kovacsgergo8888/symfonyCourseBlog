@@ -10,6 +10,7 @@ namespace Blog\ModelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class Timestampable
@@ -21,18 +22,19 @@ abstract class Timestampable
     /**
      * @var \DateTime
      *
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdAt", type="datetime")
      */
     protected $createdAt;
 
     /**
-     * Post constructor.
-     * @internal param \DateTime $createdAt
+     * @var \DateTime
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
-    public function __construct()
-    {
-        $this->createdAt = new \DateTime();
-    }
+    protected $updatedAt;
+
 
     /**
      * Set createdAt
@@ -54,4 +56,22 @@ abstract class Timestampable
     {
         return $this->createdAt;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTime $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+
 }

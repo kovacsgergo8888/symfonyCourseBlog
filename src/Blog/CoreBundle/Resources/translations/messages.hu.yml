@@ -3,6 +3,7 @@ home: Főoldal
 post:
   plural: Bejegyzések
   on: Közzétéve
+  latests: Legutóbbi bejegyzések
 by: Szerző
 read:
   more: Tovább

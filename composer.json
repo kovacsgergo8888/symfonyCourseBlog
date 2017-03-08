@@ -17,13 +17,15 @@
         "doctrine/orm": "^2.4.8",
         "doctrine/doctrine-bundle": "~1.4",
         "doctrine/doctrine-migrations-bundle": "dev-master",
+        "stof/doctrine-extensions-bundle": "dev-master",
         "symfony/swiftmailer-bundle": "~2.3,>=2.3.10",
         "symfony/monolog-bundle": "^3.0.2",
         "sensio/distribution-bundle": "~5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
-        "twig/extensions": "^1.4"
+        "twig/extensions": "^1.4",
+        "gedmo/doctrine-extensions": "2.4.x-dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
