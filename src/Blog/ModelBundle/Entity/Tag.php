@@ -32,18 +32,9 @@ class Tag
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Post", inversedBy="tags")
+     * @ORM\ManyToMany(targetEntity="Post", mappedBy="tags")
      */
     private $posts;
-
-    /**
-     * Tag constructor
-     */
-    public function __construct()
-    {
-        $this->posts = new ArrayCollection();
-    }
-
 
     /**
      * Get id
@@ -78,23 +69,45 @@ class Tag
     {
         return $this->description;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->posts = new ArrayCollection();
+    }
 
     /**
-     * @return ArrayCollection
+     * Add post
+     *
+     * @param \Blog\ModelBundle\Entity\Post $post
+     *
+     * @return Tag
+     */
+    public function addPost(Post $post)
+    {
+        $this->posts[] = $post;
+
+        return $this;
+    }
+
+    /**
+     * Remove post
+     *
+     * @param \Blog\ModelBundle\Entity\Post $post
+     */
+    public function removePost(Post $post)
+    {
+        $this->posts->removeElement($post);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPosts()
     {
         return $this->posts;
     }
-
-    /**
-     * @param ArrayCollection $posts
-     */
-    public function setPosts($posts)
-    {
-        $this->posts = $posts;
-    }
-
-
 }
-

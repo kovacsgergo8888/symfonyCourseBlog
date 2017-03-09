@@ -61,7 +61,7 @@ class Post extends Timestampable
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Tag", cascade={"persist"}, mappedBy="posts")
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="posts")
      */
     private $tags;
 
