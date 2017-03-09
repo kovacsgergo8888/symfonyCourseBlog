@@ -4,6 +4,7 @@ namespace Blog\ModelBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Tag
@@ -35,6 +36,14 @@ class Tag
      * @ORM\ManyToMany(targetEntity="Post", mappedBy="tags")
      */
     private $posts;
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Slug(fields={"description", "id"})
+     * @ORM\Column(length=255)
+     */
+    private $slug;
 
     /**
      * Get id
@@ -109,5 +118,29 @@ class Tag
     public function getPosts()
     {
         return $this->posts;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Tag
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

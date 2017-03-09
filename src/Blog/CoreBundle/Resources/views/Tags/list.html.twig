@@ -1,5 +1,5 @@
 {% for tag in tags %}
-    <a href="#">{{tag.description}}</a>
+    <a href="{{ path('blog_core_tags_show', {slug: tag.slug}) }}">{{tag.description}}</a>
 {% endfor %}
 
 

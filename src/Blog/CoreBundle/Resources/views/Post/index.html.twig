@@ -3,13 +3,15 @@
 {% block title %}{{'post.plural'|trans}}{% endblock %}
 
 {% block sidebar %}
-    <aside>
-        <h3>{{ 'post.latests'|trans }}</h3>
-        {% for post in latestPosts %}
-            <p><a href="#">{{ post.title }}</a></p>
-        {% endfor %}
-        {{ render(controller('CoreBundle:Tags:list')) }}
-    </aside>
+    {% if latestPosts is defined %}
+        <aside>
+            <h3>{{ 'post.latests'|trans }}</h3>
+            {% for post in latestPosts %}
+                <p><a href="#">{{ post.title }}</a></p>
+            {% endfor %}
+            {{ render(controller('CoreBundle:Tags:list')) }}
+        </aside>
+    {% endif %}
 {% endblock %}
 
 {% block section %}
