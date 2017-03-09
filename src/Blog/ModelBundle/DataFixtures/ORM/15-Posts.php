@@ -54,6 +54,7 @@ class Posts extends AbstractFixture implements OrderedFixtureInterface
         $p3->setTitle("Lorem ipsum3");
         $p3->setBody("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus suscipit condimentum metus fringilla scelerisque. Donec mollis est eu nisi tincidunt, a euismod nibh efficitur. Cras eu pulvinar massa. Praesent pulvinar elit nulla, vitae consectetur libero ornare at. Morbi urna turpis, luctus in velit sed, sodales scelerisque neque. Suspendisse potenti. Nunc posuere ex ut erat pretium scelerisque.");
         $p3->setAuthor($this->getAuthor($manager, 'Eddie'));
+        $p3->addTag($this->getTag($manager, 'tag2'));
 
         $manager->persist($p1);
         $manager->persist($p2);
