@@ -2,6 +2,7 @@
 
 namespace Blog\ModelBundle\Repository;
 
+use Blog\ModelBundle\Entity\Author;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,4 +13,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class AuthorRepository extends EntityRepository
 {
+    /**
+     * @return Author
+     */
+    public function findFirstAuthor()
+    {
+        return $this->_em->getRepository('ModelBundle:Author')
+            ->createQueryBuilder('a')
+            ->setMaxResults(1)
+            ->orderBy('a.id')
+            ->getQuery()
+            ->getSingleResult();
+    }
 }
