@@ -29,4 +29,6 @@
     {% for comment in post.comments %}
         {{ include('CoreBundle:Post:_comment.html.twig', {comment: comment}) }}
     {% endfor %}
+
+    <h4>{{ "comment.write"|trans }}: </h4>
 {% endblock %}

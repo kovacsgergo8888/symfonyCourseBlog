@@ -40,4 +40,31 @@ class PostControllerTest extends WebTestCase
         $this->assertGreaterThanOrEqual(1, $crawler->filter('article.comment')->count(), 'There should be at least one comment');
     }
 
+    public function testCreateComment()
+    {
+        $client = static::createClient();
+
+        /** @var Post $post */
+        $post = $client->getContainer()->get('doctrine')->getManager()->getRepository('ModelBundle:Post')->getFirst();
+        $crawler = $client->request('get', '/' . $post->getSlug());
+
+        $buttonCrawlerNode = $crawler->selectButton("Send");
+
+        $form = $buttonCrawlerNode->form([
+            'blog_modelbundle_comment[authorName]' => 'A humble commenter',
+            'blog_modelbundle_comment[body]' => 'oirjgosijgoisejfoisej',
+        ]);
+
+        $client->submit($form);
+
+        $this->assertTrue($client->getResponse()->isRedirect("/" . $post->getSlug()), "There was no redirection after submit the form.");
+
+        $crawler = $client->followRedirect();
+
+        $this->assertCount(
+            1,
+            $crawler->filter('html:contains("submitted successfully")')
+        );
+    }
+
 }
