@@ -1,8 +1,13 @@
 home: Home
+on: on
+by: by
 post:
   plural: Posts
   on: Posted on
   latests: Latest posts
+  comments: '{0} No comments|{1} %count% comment|]1,Inf] %count% comments'
 by: Author
 read:
   more: Read more
+comment:
+  plural: Comments

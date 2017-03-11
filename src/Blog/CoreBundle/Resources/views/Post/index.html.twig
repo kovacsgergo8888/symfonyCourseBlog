@@ -4,13 +4,13 @@
 
 {% block sidebar %}
     {% if latestPosts is defined %}
-        <aside>
-            <h3>{{ 'post.latests'|trans }}</h3>
-            {% for post in latestPosts %}
-                <p><a href="#">{{ post.title }}</a></p>
-            {% endfor %}
-            {{ render(controller('CoreBundle:Tags:list')) }}
-        </aside>
+    <aside>
+        <h3>{{ 'post.latests'|trans }}</h3>
+        {% for post in latestPosts %}
+            <p><a href="#">{{ post.title }}</a></p>
+        {% endfor %}
+        {{ render(controller('CoreBundle:Tags:list')) }}
+    </aside>
     {% endif %}
 {% endblock %}
 
