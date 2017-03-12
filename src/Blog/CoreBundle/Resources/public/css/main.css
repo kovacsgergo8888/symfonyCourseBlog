@@ -97,3 +97,28 @@ aside {
 aside h3 {
     font-weight: bold;
 }
+
+form label  {
+    display: block;
+    font-style: italic;
+}
+
+form input {
+    width: 300px;
+}
+
+form textarea {
+    width: 500px;
+    height: 150px;
+}
+
+form ul li {
+    list-style-type: none;
+    color: #ff0000;
+}
+
+p.session-message {
+    padding: 5px;
+    background-color: #007b00;
+    color: #fff;
+}
