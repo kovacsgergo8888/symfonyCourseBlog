@@ -5,7 +5,7 @@ model_author:
 admin:
     resource: "@AdminBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /admin
 
 core:
     resource: "@CoreBundle/Controller/"

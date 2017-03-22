@@ -17,7 +17,7 @@ class AuthorController extends Controller
     /**
      * Lists all author entities.
      *
-     * @Route("/", name="author_index")
+     * @Route("/")
      * @Method("GET")
      */
     public function indexAction()
@@ -26,7 +26,7 @@ class AuthorController extends Controller
 
         $authors = $em->getRepository('ModelBundle:Author')->findAll();
 
-        return $this->render('author/index.html.twig', array(
+        return $this->render('AdminBundle:Author:index.html.twig', array(
             'authors' => $authors,
         ));
     }
@@ -34,7 +34,7 @@ class AuthorController extends Controller
     /**
      * Creates a new author entity.
      *
-     * @Route("/new", name="author_new")
+     * @Route("/new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
@@ -48,10 +48,10 @@ class AuthorController extends Controller
             $em->persist($author);
             $em->flush($author);
 
-            return $this->redirectToRoute('author_show', array('id' => $author->getId()));
+            return $this->redirectToRoute('blog_admin_author_show', array('id' => $author->getId()));
         }
 
-        return $this->render('author/new.html.twig', array(
+        return $this->render('AdminBundle:Author:new.html.twig', array(
             'author' => $author,
             'form' => $form->createView(),
         ));
@@ -60,14 +60,14 @@ class AuthorController extends Controller
     /**
      * Finds and displays a author entity.
      *
-     * @Route("/{id}", name="author_show")
+     * @Route("/{id}")
      * @Method("GET")
      */
     public function showAction(Author $author)
     {
         $deleteForm = $this->createDeleteForm($author);
 
-        return $this->render('author/show.html.twig', array(
+        return $this->render('AdminBundle:Author:show.html.twig', array(
             'author' => $author,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -76,7 +76,7 @@ class AuthorController extends Controller
     /**
      * Displays a form to edit an existing author entity.
      *
-     * @Route("/{id}/edit", name="author_edit")
+     * @Route("/{id}/edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Author $author)
@@ -88,10 +88,10 @@ class AuthorController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('author_edit', array('id' => $author->getId()));
+            return $this->redirectToRoute('blog_admin_author_edit', array('id' => $author->getId()));
         }
 
-        return $this->render('author/edit.html.twig', array(
+        return $this->render('AdminBundle:Author:edit.html.twig', array(
             'author' => $author,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -101,7 +101,7 @@ class AuthorController extends Controller
     /**
      * Deletes a author entity.
      *
-     * @Route("/{id}", name="author_delete")
+     * @Route("/{id}")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Author $author)
@@ -115,7 +115,7 @@ class AuthorController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('author_index');
+        return $this->redirectToRoute('blog_admin_author_index');
     }
 
     /**
@@ -128,7 +128,7 @@ class AuthorController extends Controller
     private function createDeleteForm(Author $author)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('author_delete', array('id' => $author->getId())))
+            ->setAction($this->generateUrl('blog_admin_author_delete', array('id' => $author->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

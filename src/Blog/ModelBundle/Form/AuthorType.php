@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog\AdminBundle\Form;
+namespace Blog\ModelBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,9 +13,9 @@ class AuthorType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('slug')->add('createdAt')->add('updatedAt');
+        $builder->add('name');
     }
-    
+
     /**
      * {@inheritdoc}
      */
