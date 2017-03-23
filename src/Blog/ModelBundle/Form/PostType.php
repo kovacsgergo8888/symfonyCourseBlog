@@ -20,7 +20,8 @@ class PostType extends AbstractType
         $builder
             ->add('title')
             ->add('body')
-            ->add('author');
+            ->add('author')
+            ->add('tags');
     }
 
     /**
