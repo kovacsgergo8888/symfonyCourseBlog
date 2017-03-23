@@ -1,3 +1,11 @@
+model_tag:
+    resource: "@AdminBundle/Controller/TagController.php"
+    type:     annotation
+
+model_post:
+    resource: "@AdminBundle/Controller/PostController.php"
+    type:     annotation
+
 model_author:
     resource: "@AdminBundle/Controller/AuthorController.php"
     type:     annotation

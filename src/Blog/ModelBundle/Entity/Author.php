@@ -129,5 +129,8 @@ class Author extends Timestampable
         $this->slug = $slug;
     }
 
-
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

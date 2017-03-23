@@ -9,8 +9,9 @@
         <p>Symfony 2 blog - Admin</p>
         <nav>
             <ul>
-                <li><a href="#">Posts</a></li>
+                <li><a href="{{ path('blog_admin_post_index') }}">Posts</a></li>
                 <li><a href="{{ path('blog_admin_author_index') }}">Authors</a></li>
+                <li><a href="{{ path('tag_index') }}">Tags</a></li>
             </ul>
         </nav>
     </header>
