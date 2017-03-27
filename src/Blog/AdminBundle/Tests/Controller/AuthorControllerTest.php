@@ -13,8 +13,8 @@ class AuthorControllerTest extends WebTestCase
     {
         // Create a new client to browse the application
         $client = static::createClient([], [
-            'PHP_AUTH_USER' => 'admin',
-            'PHP_AUTH_PW' => 'admin'
+            'PHP_AUTH_USER' => 'superadmin',
+            'PHP_AUTH_PW' => 'superadmin'
         ]);
 
         // Create a new entry in the database

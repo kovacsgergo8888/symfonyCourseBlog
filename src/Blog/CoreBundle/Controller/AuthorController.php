@@ -2,6 +2,7 @@
 
 namespace Blog\CoreBundle\Controller;
 
+use Blog\CoreBundle\Services\AuthorManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -14,21 +15,13 @@ class AuthorController extends Controller
      */
     public function showAction($slug)
     {
-        $author = $this->getDoctrine()->getRepository('ModelBundle:Author')->findOneBy(
-            [
-                "slug" => $slug
-            ]
-        );
+        $author = $this->getAuthorManager()->findBySlug($slug);
 
         if ($author === null) {
             throw $this->createNotFoundException("Author not found");
         }
 
-        $posts = $this->getDoctrine()->getRepository('ModelBundle:Post')->findBy(
-            [
-                "author" => $author
-            ]
-        );
+        $posts = $this->getAuthorManager()->findPosts($author);
 
         return $this->render('CoreBundle:Author:show.html.twig', array(
             "author" => $author,
@@ -36,4 +29,11 @@ class AuthorController extends Controller
         ));
     }
 
+    /**
+     * @return AuthorManager|object
+     */
+    private function getAuthorManager()
+    {
+        return $this->get('author_manager');
+    }
 }

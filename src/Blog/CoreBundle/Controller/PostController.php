@@ -2,6 +2,7 @@
 
 namespace Blog\CoreBundle\Controller;
 
+use Blog\CoreBundle\Services\PostManager;
 use Blog\ModelBundle\Entity\Comment;
 use Blog\ModelBundle\Form\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,9 +23,8 @@ class PostController extends Controller
      */
     public function indexAction()
     {
-        $postRepository = $this->getDoctrine()->getRepository('ModelBundle:Post');
-        $posts = $postRepository->findAll();
-        $latestPosts = $postRepository->findLatest(10);
+        $posts = $this->getPostManager()->findAllPost();
+        $latestPosts = $this->getPostManager()->findLatestPost(10);
 
         return $this->render('CoreBundle:Post:index.html.twig', [
             "posts" => $posts,
@@ -41,15 +41,7 @@ class PostController extends Controller
      */
     public function showAction($slug)
     {
-        $post = $this->getDoctrine()->getRepository('ModelBundle:Post')->findOneBy(
-            [
-                "slug" => $slug
-            ]
-        );
-
-        if ($post === null) {
-            throw $this->createNotFoundException("Post wasn't found!");
-        }
+        $post = $this->getPostManager()->findBySlug($slug);
 
         $form = $this->createForm(new CommentType());
 
@@ -72,29 +64,24 @@ class PostController extends Controller
      */
     public function createCommentAction(Request $request, $slug)
     {
-        $post = $this->getDoctrine()->getRepository('ModelBundle:Post')->findOneBy(["slug" => $slug]);
+        $post = $this->getPostManager()->findBySlug($slug);
+        $form = $this->getPostManager()->createComment($post, $request);
 
-        if ($post === null) {
-            throw $this->createNotFoundException("Post not found.");
-        }
-
-        $comment = new Comment();
-        $comment->setPost($post);
-
-        $form = $this->createForm(new CommentType(), $comment);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($comment);
-            $em->flush();
-
+        if ($form === true) {
             $this->get('session')->getFlashBag()->add('success', 'Comment was submitted');
 
             return $this->redirectToRoute('blog_core_post_show', ["slug" => $slug]);
         }
 
         return [];
+    }
+
+    /**
+     * @return PostManager|object
+     */
+    public function getPostManager()
+    {
+        return $this->container->get("post_manager");
     }
 
 }
